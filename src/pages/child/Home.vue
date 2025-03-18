@@ -7,10 +7,10 @@
           class="flex transition-transform duration-500 ease-in-out"
           ref="carousel"
         >
-          <div v-for="i in 5" :key="i" class="min-w-full h-[600px] relative">
+          <div v-for="(image, i) in carouselImages" :key="i" class="min-w-full h-[600px] relative">
             <img
-              :src="`/src/assets/carousel/photo${i}.jpg`"
-              :alt="`Slide ${i}`"
+              :src="image"
+              :alt="`Slide ${i + 1}`"
               class="w-full h-full object-cover"
             />
             <div
@@ -154,10 +154,9 @@
       </div>
 
       <!-- Hero Section with Video/Animation Background -->
+      <!-- Keep the original hero section unchanged -->
       <div class="relative h-screen">
-        <div
-          class="absolute inset-0 bg-gradient-to-r from-[#0C1C57]/70 to-[#0C1C57]/50"
-        >
+        <div class="absolute inset-0 bg-gradient-to-r from-[#0C1C57]/70 to-[#0C1C57]/50">
           <img
             src="@/assets/home/photo1.png"
             alt="Dream Home Group"
@@ -167,10 +166,14 @@
         <div
           class="relative container mx-auto px-6 h-full flex flex-col justify-center items-center text-center"
         >
-          <h1 class="text-4xl md:text-5xl lg:text-7xl font-bold text-[#F4B400] mb-4 md:mb-8">
+          <h1
+            class="text-4xl md:text-5xl lg:text-7xl font-bold text-[#F4B400] mb-4 md:mb-8"
+          >
             Dream Home Group
           </h1>
-          <p class="text-base md:text-lg lg:text-2xl text-white/90 max-w-4xl leading-relaxed px-4 md:px-6">
+          <p
+            class="text-base md:text-lg lg:text-2xl text-white/90 max-w-4xl leading-relaxed px-4 md:px-6"
+          >
             ကျွန်ုပ်တို့ Dream Home Group Co.,Ltd သည် လူမှုဘဝပါတ်ဝန်းကျင်
             ဖွံ့ဖြိုးတိုးတက်မှုအတွက် အဆောက်အဦးတည်ဆောက်ခြင်း၊
             အိမ်အတွင်းအလှဆင်ခြင်း၊ စွမ်းအင်ခြွေတာရေးအတွက် ဆိုလာစနစ်တပ်ဆင်ခြင်း၊
@@ -195,7 +198,7 @@
         </div>
       </div>
 
-      <!-- Project Showcase -->
+      <!-- Only update the project showcase section -->
       <div class="py-24">
         <div class="container mx-auto px-6 max-w-7xl">
           <h2 class="text-4xl font-bold text-center text-[#0C1C57] mb-16">
@@ -209,36 +212,48 @@
               class="group relative overflow-hidden rounded-xl shadow-lg cursor-pointer hover:shadow-xl transition-shadow duration-300"
             >
               <img
-                :src="`/src/assets/home/photo${i}.png`"
+                :src="projectImages[i - 1]"
                 :alt="`Project ${i}`"
                 class="w-full h-[300px] object-cover transition-transform duration-500"
                 :class="[
                   'group-hover:scale-105',
-                  { 'scale-105': activeCard === i }
+                  { 'scale-105': activeCard === i },
                 ]"
               />
               <!-- Construction overlay -->
-              <div 
+              <div
                 class="absolute inset-0 bg-[#F4B400]/10 transition-all duration-300"
                 :class="[
                   'opacity-0 group-hover:opacity-100',
-                  { 'opacity-100': activeCard === i }
+                  { 'opacity-100': activeCard === i },
                 ]"
               >
-                <div class="absolute inset-0 border-4 border-dashed border-[#F4B400]/80 animate-border-dance"></div>
-                <div class="absolute top-4 left-4 bg-[#F4B400] p-3 rounded-full transform -rotate-12">
-                  <font-awesome-icon icon="building" class="w-6 h-6 text-[#0C1C57]" />
+                <div
+                  class="absolute inset-0 border-4 border-dashed border-[#F4B400]/80 animate-border-dance"
+                ></div>
+                <div
+                  class="absolute top-4 left-4 bg-[#F4B400] p-3 rounded-full transform -rotate-12"
+                >
+                  <font-awesome-icon
+                    icon="building"
+                    class="w-6 h-6 text-[#0C1C57]"
+                  />
                 </div>
-                <div class="absolute top-4 right-4 bg-[#F4B400] p-3 rounded-full transform rotate-12">
-                  <font-awesome-icon icon="paint-roller" class="w-6 h-6 text-[#0C1C57]" />
+                <div
+                  class="absolute top-4 right-4 bg-[#F4B400] p-3 rounded-full transform rotate-12"
+                >
+                  <font-awesome-icon
+                    icon="paint-roller"
+                    class="w-6 h-6 text-[#0C1C57]"
+                  />
                 </div>
               </div>
               <!-- Content overlay -->
-              <div 
+              <div
                 class="absolute inset-0 bg-gradient-to-t from-[#0C1C57]/70 to-transparent transition-all duration-300"
                 :class="[
                   'opacity-0 group-hover:opacity-100',
-                  { 'opacity-100': activeCard === i }
+                  { 'opacity-100': activeCard === i },
                 ]"
               >
                 <div class="absolute bottom-6 left-6">
@@ -281,6 +296,30 @@
 </template>
 
 <script setup>
+// Carousel images
+import carousel1 from '@/assets/carousel/photo1.jpg';
+import carousel2 from '@/assets/carousel/photo2.jpg';
+import carousel3 from '@/assets/carousel/photo3.jpg';
+import carousel4 from '@/assets/carousel/photo4.jpg';
+import carousel5 from '@/assets/carousel/photo5.jpg';
+
+// Hero and Featured section images
+import heroImage from '@/assets/home/photo1.png';
+import featuredImage from '@/assets/home/photo2.png';
+
+// Project showcase images
+import project1 from '@/assets/home/photo1.png';
+import project2 from '@/assets/home/photo2.png';
+import project3 from '@/assets/home/photo3.png';
+import project4 from '@/assets/home/photo4.png';
+import project5 from '@/assets/home/photo5.png';
+import project6 from '@/assets/home/photo6.png';
+import project7 from '@/assets/home/photo7.png';
+import project8 from '@/assets/home/photo8.png';
+
+const carouselImages = [carousel1, carousel2, carousel3, carousel4, carousel5];
+const projectImages = [project1, project2, project3, project4, project5, project6, project7, project8];
+
 import { ref, onMounted, onBeforeUnmount } from "vue";
 
 const carousel = ref(null);
